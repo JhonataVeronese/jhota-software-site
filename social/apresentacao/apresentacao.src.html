@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Jhota Software — Plataforma de Gestão</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: 13.333in 7.5in; margin: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root{
+    --neon:#FFFF00;
+    --ink:#0A0A0A;
+    --line:rgba(255,255,255,.12);
+    --muted:#9A9A9A;
+    --white:#FFFFFF;
+  }
+
+  html, body { background:var(--ink); }
+  body{
+    font-family:'Inter',"Segoe UI",Arial,sans-serif;
+    color:var(--white);
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  .slide{
+    position:relative; width:13.333in; height:7.5in; overflow:hidden;
+    background:var(--ink); page-break-after:always; break-after:page;
+    padding:0.62in 0.78in;
+    display:flex; flex-direction:column;
+  }
+  .slide:last-child{ page-break-after:auto; break-after:auto; }
+
+  .slide::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(60% 55% at 86% 8%, rgba(255,255,0,.065), transparent 70%),
+      radial-gradient(55% 50% at 6% 96%, rgba(255,255,255,.045), transparent 70%);
+  }
+  .slide > * { position:relative; z-index:1; }
+
+  /* ---------- CAPA ---------- */
+  .cover{ padding:0; flex-direction:row; align-items:center; }
+  .cover::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:6px;
+    background:linear-gradient(90deg,var(--neon),rgba(255,255,0,0));
+  }
+  .cover-art{
+    width:46%; height:100%; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 50% 45%, rgba(255,255,0,.10), transparent 62%);
+  }
+  .cover-art img{ width:78%; filter:drop-shadow(0 0 46px rgba(255,255,0,.22)); }
+  .cover-txt{ width:54%; padding:0 1.0in 0 .2in; }
+  .cover-kicker{
+    font-family:'Barlow Condensed',sans-serif; font-weight:600;
+    letter-spacing:.42em; text-transform:uppercase; font-size:13.5pt; color:var(--neon);
+    margin-bottom:.16in;
+  }
+  .cover-txt h1{
+    font-family:'Anton',"Arial Black",sans-serif; font-weight:400;
+    font-size:52pt; line-height:1.04; letter-spacing:.01em; text-transform:uppercase;
+  }
+  .cover-txt h1 em{ font-style:normal; color:var(--neon); }
+  .cover-rule{ width:1.5in; height:5px; background:var(--neon); margin:.26in 0; }
+  .cover-txt p{ font-size:14pt; line-height:1.55; color:#CFCFCF; font-weight:300; max-width:5.0in; }
+  .cover-meta{
+    margin-top:.52in; display:flex; gap:.52in;
+    font-family:'Barlow Condensed',sans-serif; font-size:11.5pt;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+  }
+  .cover-meta b{ display:block; color:var(--white); font-size:21pt; letter-spacing:0; font-weight:700; }
+
+  /* ---------- CABEÇALHO ---------- */
+  .head{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:.34in; }
+  .head-l{ display:flex; align-items:baseline; gap:.2in; }
+  .num{
+    font-family:'Anton',sans-serif; font-size:28pt; color:var(--neon);
+    line-height:1; opacity:.95;
+  }
+  .head h2{
+    font-family:'Anton',"Arial Black",sans-serif; font-weight:400;
+    font-size:27pt; text-transform:uppercase; letter-spacing:.012em; line-height:1.12;
+  }
+  .head h2 small{ display:block; font-family:'Inter',sans-serif; font-weight:300;
+    font-size:11.5pt; color:var(--muted); text-transform:none; letter-spacing:0; margin-top:.07in; }
+  .head img{ height:.52in; opacity:.95; }
+
+  .body{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+
+  /* ---------- CARDS ---------- */
+  .grid{ display:grid; gap:.17in; }
+  .g2{ grid-template-columns:repeat(2,1fr); }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g4{ grid-template-columns:repeat(4,1fr); }
+  .g5{ grid-template-columns:repeat(5,1fr); }
+
+  .card{
+    background:linear-gradient(160deg,#141414,#0D0D0D);
+    border:1px solid var(--line); border-radius:12px; padding:.21in .23in;
+  }
+  .card h3{
+    font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14.5pt;
+    text-transform:uppercase; letter-spacing:.055em; margin-bottom:.085in;
+  }
+  .card p{ font-size:9.6pt; line-height:1.5; color:#B4B4B4; font-weight:300; }
+  .card .tag{
+    display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:9pt;
+    letter-spacing:.17em; text-transform:uppercase; color:var(--neon);
+    border:1px solid rgba(255,255,0,.4); border-radius:3px; padding:.025in .09in; margin-bottom:.1in;
+  }
+  .card.accent{ border-color:rgba(255,255,0,.52); background:linear-gradient(160deg,#1B1B10,#0D0D0A); }
+
+  ul.neon{ list-style:none; }
+  ul.neon li{
+    position:relative; padding-left:.26in; margin-bottom:.125in;
+    font-size:11pt; line-height:1.5; color:#D2D2D2; font-weight:300;
+  }
+  ul.neon li::before{
+    content:""; position:absolute; left:0; top:.085in;
+    width:.1in; height:.1in; background:var(--neon); border-radius:2px;
+    box-shadow:0 0 9px rgba(255,255,0,.65);
+  }
+  ul.neon li b{ color:var(--white); font-weight:600; }
+
+  /* ---------- NÚMEROS ---------- */
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:.2in; }
+  .stat{ border-left:4px solid var(--neon); padding:.06in 0 .06in .2in; }
+  .stat b{ display:block; font-family:'Anton',sans-serif; font-size:38pt; line-height:.94; }
+  .stat span{
+    font-family:'Barlow Condensed',sans-serif; font-size:10.5pt; letter-spacing:.17em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ---------- PREÇOS ---------- */
+  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:.26in; align-items:stretch; }
+  .plan{
+    background:linear-gradient(170deg,#141414,#0C0C0C); border:1px solid var(--line);
+    border-radius:16px; padding:.32in .3in; display:flex; flex-direction:column;
+  }
+  .plan.hl{ border:2px solid var(--neon); box-shadow:0 0 34px rgba(255,255,0,.17); }
+  .plan .badge{
+    align-self:flex-start; font-family:'Barlow Condensed',sans-serif; font-size:9pt;
+    letter-spacing:.2em; text-transform:uppercase; background:var(--neon); color:#000;
+    padding:.03in .11in; border-radius:3px; font-weight:700; margin-bottom:.13in;
+  }
+  .plan h3{
+    font-family:'Anton',sans-serif; font-size:23pt; text-transform:uppercase; letter-spacing:.015em;
+  }
+  .plan .desc{ font-size:9.4pt; color:#A8A8A8; line-height:1.45; font-weight:300; min-height:.46in; margin-top:.08in; }
+  .price{ margin:.17in 0 .15in; display:flex; align-items:baseline; gap:.06in; }
+  .price .cur{ font-family:'Barlow Condensed',sans-serif; font-size:13pt; color:var(--muted); }
+  .price .val{ font-family:'Anton',sans-serif; font-size:44pt; line-height:.9; color:var(--neon); }
+  .price .per{ font-family:'Barlow Condensed',sans-serif; font-size:11.5pt; color:var(--muted); letter-spacing:.07em; }
+  .plan ul{ list-style:none; margin-top:.04in; }
+  .plan ul li{
+    font-size:9.6pt; color:#C6C6C6; padding:.062in 0; border-bottom:1px solid rgba(255,255,255,.06);
+    font-weight:300;
+  }
+  .plan ul li:last-child{ border-bottom:none; }
+  .plan ul li b{ color:var(--white); font-weight:600; }
+
+  /* ---------- TABELA ---------- */
+  table{ width:100%; border-collapse:collapse; }
+  thead th{
+    font-family:'Barlow Condensed',sans-serif; font-size:11pt; letter-spacing:.15em;
+    text-transform:uppercase; text-align:center; padding:.1in .05in; color:var(--neon);
+    border-bottom:2px solid rgba(255,255,0,.45);
+  }
+  thead th:first-child{ text-align:left; color:var(--muted); }
+  tbody td{
+    font-size:10pt; padding:.082in .05in; text-align:center; color:#CFCFCF;
+    border-bottom:1px solid rgba(255,255,255,.07); font-weight:300;
+  }
+  tbody td:first-child{ text-align:left; color:var(--white); font-weight:500; }
+  tbody tr:last-child td{ border-bottom:none; }
+  .yes{ color:var(--neon); font-weight:700; }
+  .no{ color:#4A4A4A; }
+
+  /* ---------- RODAPÉ ---------- */
+  .foot{
+    position:absolute; left:.78in; right:.78in; bottom:.3in;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Barlow Condensed',sans-serif; font-size:9pt; letter-spacing:.2em;
+    text-transform:uppercase; color:#5A5A5A;
+    border-top:1px solid rgba(255,255,255,.08); padding-top:.11in;
+  }
+  .foot .pg{ color:var(--neon); }
+  .note{ font-size:9pt; color:#7E7E7E; font-weight:300; margin-top:.17in; line-height:1.5; }
+
+  /* ---------- FINAL ---------- */
+  .end{ align-items:center; justify-content:center; text-align:center; }
+  .end img{ width:3.05in; margin-bottom:.22in; filter:drop-shadow(0 0 34px rgba(255,255,0,.3)); }
+  .end h2{ font-family:'Anton',sans-serif; font-size:40pt; text-transform:uppercase; line-height:1.16; padding-bottom:.06in; }
+  .end h2 em{ font-style:normal; color:var(--neon); }
+  .end p{ font-size:13pt; color:#BDBDBD; margin-top:.2in; font-weight:300; }
+  .end .rule{ width:2.2in; height:4px; background:var(--neon); margin:.3in auto 0; }
+</style>
+</head>
+<body>
+
+<!-- 1. CAPA -->
+<section class="slide cover">
+  <div class="cover-art"><img src="{{HERO}}" alt="Jhota Software"></div>
+  <div class="cover-txt">
+    <div class="cover-kicker">Plataforma SaaS de Gestão</div>
+    <h1>Gestão<br>completa da<br><em>sua operação</em></h1>
+    <div class="cover-rule"></div>
+    <p>Financeiro, comercial, estoque, documentos e atendimento em um único sistema multiempresa — pronto para usar, sem instalação.</p>
+    <div class="cover-meta">
+      <div>Módulos<b>10</b></div>
+      <div>Telas<b>60+</b></div>
+      <div>A partir de<b>R$ 79</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. VISÃO GERAL -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">01</span>
+      <h2>O que é a plataforma<small>Um sistema de gestão completo, entregue como serviço</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="grid g2" style="gap:.4in; align-items:center;">
+      <div>
+        <ul class="neon">
+          <li><b>Tudo em um só lugar.</b> Contas a pagar e receber, clientes, fornecedores, produtos, pedidos e documentos deixam de viver em planilhas soltas.</li>
+          <li><b>Multiempresa de verdade.</b> Cada empresa tem seus dados isolados. Um mesmo acesso pode administrar várias operações.</li>
+          <li><b>Sua marca, não a nossa.</b> O sistema é white-label: logo, nome e identidade visual configuráveis por cliente.</li>
+          <li><b>Contratação automática.</b> O cliente escolhe o plano na vitrine pública e o ambiente é criado sozinho.</li>
+        </ul>
+      </div>
+      <div class="grid g2">
+        <div class="card"><span class="tag">Financeiro</span><p>Lançamentos, baixas, extrato por conta e fluxo de caixa com indicadores comparativos.</p></div>
+        <div class="card"><span class="tag">Comercial</span><p>Orçamentos, pipeline de oportunidades, pedidos de venda e faturamento automático.</p></div>
+        <div class="card"><span class="tag">Operação</span><p>Estoque com saldos e movimentos, cadastros completos e régua de cobrança.</p></div>
+        <div class="card"><span class="tag">Documentos</span><p>GED com versionamento, classificação e verificação pública de autenticidade.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">02</span></div>
+</section>
+
+<!-- 3. NÚMEROS -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">02</span>
+      <h2>O sistema hoje<small>Escopo já implementado e em funcionamento</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="stats" style="margin-bottom:.42in;">
+      <div class="stat"><b>10</b><span>Módulos funcionais</span></div>
+      <div class="stat"><b>60+</b><span>Telas de negócio</span></div>
+      <div class="stat"><b>28</b><span>Entidades no banco</span></div>
+      <div class="stat"><b>4</b><span>Perfis de acesso</span></div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>Front-end</h3><p>Next.js 16 e React 19 em TypeScript, com interface responsiva e tema claro/escuro.</p></div>
+      <div class="card"><h3>Back-end</h3><p>API REST em Node.js com Express, Prisma e PostgreSQL, organizada em 22 módulos de rota.</p></div>
+      <div class="card"><h3>Infraestrutura</h3><p>Containers Docker, migrações versionadas e publicação automática a cada atualização.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">03</span></div>
+</section>
+
+<!-- 4. MÓDULOS -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">03</span>
+      <h2>Os 10 módulos<small>Liberados conforme o plano contratado</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="grid g5" style="gap:.15in; grid-auto-rows:1.62in;">
+      <div class="card"><h3>Cadastros</h3><p>Clientes, fornecedores e contas bancárias.</p></div>
+      <div class="card accent"><h3>Financeiro</h3><p>Lançamentos, extratos, fluxo de caixa e indicadores.</p></div>
+      <div class="card"><h3>Config. financeiras</h3><p>Formas de pagamento e plano de contas.</p></div>
+      <div class="card accent"><h3>Relatórios</h3><p>Aging de títulos e DRE gerencial por plano de contas.</p></div>
+      <div class="card"><h3>Cobrança</h3><p>Régua de cobrança sobre contas a receber.</p></div>
+      <div class="card"><h3>Estoque</h3><p>Produtos, saldos e movimentos de estoque.</p></div>
+      <div class="card"><h3>Pedidos</h3><p>Pedidos de venda e faturamento para contas a receber.</p></div>
+      <div class="card accent"><h3>CRM e orçamentos</h3><p>Orçamentos comerciais e pipeline de oportunidades.</p></div>
+      <div class="card"><h3>Atendimento</h3><p>Painel e chat de atendimento via WhatsApp.</p></div>
+      <div class="card accent"><h3>Documentos</h3><p>GED com versionamento, classificação e metadados.</p></div>
+    </div>
+    <p class="note">Os módulos em destaque concentram os diferenciais da plataforma frente a planilhas e sistemas financeiros básicos.</p>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">04</span></div>
+</section>
+
+<!-- 5. FINANCEIRO -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">04</span>
+      <h2>Financeiro<small>O núcleo da plataforma</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="grid g2" style="gap:.4in; align-items:center;">
+      <ul class="neon">
+        <li><b>Contas a pagar e a receber</b> com baixa parcial ou total, vínculo a forma de pagamento e conta bancária.</li>
+        <li><b>Extrato por conta bancária</b> com movimentos conciliados e saldo acumulado.</li>
+        <li><b>Painel com comparativo mensal</b> de recebimentos e pagamentos, variação contra o mês anterior.</li>
+        <li><b>Plano de contas hierárquico</b> por grupos, já pré-carregado na criação da empresa.</li>
+        <li><b>Régua de cobrança</b> para acompanhar inadimplência sobre os títulos em aberto.</li>
+      </ul>
+      <div class="grid g2">
+        <div class="card accent"><span class="tag">Relatório</span><h3>DRE gerencial</h3><p>Demonstrativo de resultado montado a partir do seu próprio plano de contas.</p></div>
+        <div class="card accent"><span class="tag">Relatório</span><h3>Aging de títulos</h3><p>Títulos vencidos agrupados por faixa de atraso, a receber e a pagar.</p></div>
+        <div class="card"><span class="tag">Relatório</span><h3>Extrato de conta</h3><p>Movimentação detalhada por período e por conta bancária.</p></div>
+        <div class="card"><span class="tag">Painel</span><h3>Resumo de bancos</h3><p>Saldo consolidado de todas as contas em uma única visão.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">05</span></div>
+</section>
+
+<!-- 6. COMERCIAL -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">05</span>
+      <h2>Comercial e operação<small>Do orçamento ao recebimento, sem retrabalho</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="grid g4" style="margin-bottom:.3in;">
+      <div class="card"><span class="tag">Passo 1</span><h3>Oportunidade</h3><p>O contato entra no pipeline de CRM e avança por fases até a decisão.</p></div>
+      <div class="card"><span class="tag">Passo 2</span><h3>Orçamento</h3><p>Proposta montada com produtos e valores, enviada para aprovação do cliente.</p></div>
+      <div class="card"><span class="tag">Passo 3</span><h3>Pedido</h3><p>Orçamento aprovado vira pedido de venda, que baixa o estoque.</p></div>
+      <div class="card accent"><span class="tag">Passo 4</span><h3>Faturamento</h3><p>O pedido faturado gera as contas a receber automaticamente.</p></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Estoque integrado</h3><p>Produtos com saldo atual e histórico de movimentos. A venda reflete no estoque sem lançamento manual.</p></div>
+      <div class="card"><h3>Atendimento WhatsApp</h3><p>Painel de conversas e chat integrado via Z-API, com as mensagens registradas dentro do sistema.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">06</span></div>
+</section>
+
+<!-- 7. GED -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">06</span>
+      <h2>Gestão de documentos<small>GED com verificação pública de autenticidade</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="grid g2" style="gap:.4in; align-items:center;">
+      <ul class="neon">
+        <li><b>Versionamento completo.</b> Cada nova versão é guardada e pode ser baixada individualmente.</li>
+        <li><b>Classificação por tipo documental</b> — contrato, nota fiscal, ofício, certidão e outros.</li>
+        <li><b>Assinatura digital por hash SHA-256</b> gerada para cada versão do arquivo.</li>
+        <li><b>Código de autenticidade único</b> por documento, verificável por qualquer pessoa.</li>
+      </ul>
+      <div class="card accent" style="padding:.34in;">
+        <span class="tag">Diferencial</span>
+        <h3 style="font-size:17pt;">Verificação sem login</h3>
+        <p style="font-size:10.4pt; margin-top:.1in;">
+          Qualquer destinatário pode conferir se um documento emitido pela sua empresa é legítimo:
+          basta informar o código de autenticidade em uma página pública do sistema.
+          O hash SHA-256 confirma que o arquivo não foi alterado depois de emitido.
+        </p>
+        <p style="font-size:10.4pt; margin-top:.14in; color:#E2E2E2;">
+          É o tipo de recurso que normalmente só existe em sistemas corporativos de grande porte.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">07</span></div>
+</section>
+
+<!-- 8. SEGURANÇA -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">07</span>
+      <h2>Segurança e arquitetura<small>Como os dados de cada empresa ficam protegidos</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="grid g3" style="margin-bottom:.28in;">
+      <div class="card"><h3>Isolamento por empresa</h3><p>Toda consulta é filtrada pela empresa da sessão. Um cliente nunca enxerga o dado de outro.</p></div>
+      <div class="card"><h3>Quatro perfis de acesso</h3><p>Administrador, operador e leitura — além do perfil de plataforma, usado só pela Jhota Software.</p></div>
+      <div class="card"><h3>Sessão com expiração</h3><p>Autenticação por token assinado, com validade configurável e encerramento automático.</p></div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>Senhas protegidas</h3><p>Nenhuma senha é armazenada em texto. O sistema guarda apenas o hash criptográfico.</p></div>
+      <div class="card"><h3>Banco gerenciado</h3><p>PostgreSQL com backup e migrações versionadas — atualizações sem perda de dados.</p></div>
+      <div class="card"><h3>Atualização contínua</h3><p>Novas versões publicadas automaticamente, sem janela de parada para o cliente.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">08</span></div>
+</section>
+
+<!-- 9. PLANOS -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">08</span>
+      <h2>Planos e investimento<small>Assinatura mensal, sem taxa de instalação</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <div class="plans">
+      <div class="plan hl">
+        <span class="badge">Porta de entrada</span>
+        <h3>Essencial</h3>
+        <p class="desc">O financeiro da sua empresa organizado em um só lugar.</p>
+        <div class="price"><span class="cur">R$</span><span class="val">79</span><span class="per">/mês</span></div>
+        <ul>
+          <li><b>5</b> usuários</li>
+          <li><b>4</b> módulos</li>
+          <li>Cadastros e financeiro</li>
+          <li>Plano de contas</li>
+          <li>DRE e aging de títulos</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Gestão</h3>
+        <p class="desc">Operação financeira e comercial conectadas, com atendimento e cobrança.</p>
+        <div class="price"><span class="cur">R$</span><span class="val">99</span><span class="per">/mês</span></div>
+        <ul>
+          <li><b>10</b> usuários</li>
+          <li><b>10</b> módulos — todos</li>
+          <li>Tudo do Essencial, mais:</li>
+          <li>CRM, pedidos e estoque</li>
+          <li>WhatsApp, cobrança e GED</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Escala</h3>
+        <p class="desc">Para equipes maiores, com o mesmo conjunto completo de módulos.</p>
+        <div class="price"><span class="cur">R$</span><span class="val">199</span><span class="per">/mês</span></div>
+        <ul>
+          <li><b>20</b> usuários</li>
+          <li><b>10</b> módulos — todos</li>
+          <li>Tudo do Gestão</li>
+          <li>Dobro de usuários</li>
+          <li>Prioridade de atendimento</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Valores mensais por empresa. O cliente contrata pela vitrine pública e o ambiente é liberado na hora.</p>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">09</span></div>
+</section>
+
+<!-- 10. MATRIZ -->
+<section class="slide">
+  <div class="head">
+    <div class="head-l"><span class="num">09</span>
+      <h2>O que cada plano inclui<small>Matriz de módulos por plano</small></h2></div>
+    <img src="{{HORIZONTAL}}" alt="">
+  </div>
+  <div class="body">
+    <table>
+      <thead><tr><th>Módulo</th><th>Essencial<br>R$ 79</th><th>Gestão<br>R$ 99</th><th>Escala<br>R$ 199</th></tr></thead>
+      <tbody>
+        <tr><td>Cadastros</td><td class="yes">incluso</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Financeiro</td><td class="yes">incluso</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Configurações financeiras</td><td class="yes">incluso</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Relatórios gerenciais</td><td class="yes">incluso</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Cobrança</td><td class="no">—</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Estoque</td><td class="no">—</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Pedidos</td><td class="no">—</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>CRM e orçamentos</td><td class="no">—</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Atendimento WhatsApp</td><td class="no">—</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td>Gestão de documentos</td><td class="no">—</td><td class="yes">incluso</td><td class="yes">incluso</td></tr>
+        <tr><td><b>Limite de usuários</b></td><td><b>5</b></td><td><b>10</b></td><td><b>20</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>Jhota Software — Plataforma de Gestão</span><span class="pg">10</span></div>
+</section>
+
+<!-- 11. FINAL -->
+<section class="slide end">
+  <img src="{{BADGE}}" alt="Jhota Software">
+  <h2>Vamos colocar sua<br>operação <em>no lugar certo</em></h2>
+  <p>Agende uma demonstração e veja o sistema rodando com os dados da sua empresa.</p>
+  <div class="rule"></div>
+</section>
+
+</body>
+</html>

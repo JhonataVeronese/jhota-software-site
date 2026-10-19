@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink text-white antialiased;
+  }
+
+  /* Compensa o cabeçalho fixo ao navegar por âncora. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  ::selection {
+    @apply bg-neon text-ink;
+  }
+}
+
+@layer components {
+  .rotulo {
+    @apply font-cond text-sm font-semibold uppercase tracking-[0.22em] text-neon;
+  }
+
+  .titulo-secao {
+    @apply font-display text-3xl uppercase leading-tight tracking-tight sm:text-4xl;
+  }
+
+  .cartao {
+    @apply rounded-2xl border border-white/10 bg-ink-3 transition;
+  }
+
+  .botao-neon {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-neon px-6 py-3.5 font-bold text-ink transition hover:bg-neon-dim;
+  }
+
+  .botao-linha {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 px-6 py-3.5 font-semibold text-white transition hover:border-neon hover:text-neon;
+  }
+}

@@ -1,0 +1,107 @@
+/* Camada de layout para celular (retrato 9:16).
+   Injetada pelo gerar-pdf.js depois do CSS de cada tema: so muda tamanho e
+   disposicao, as cores continuam vindo do tema (escuro ou claro). */
+@page { size: 4.5in 8in; margin: 0; }
+
+.slide{ width:4.5in; height:8in; padding:.42in .34in .62in; }
+
+/* ---------- CAPA ---------- */
+.cover{ flex-direction:column; align-items:stretch; justify-content:center; padding:.5in .34in .6in; }
+.cover-art{ width:100%; height:auto; flex:0 0 auto; padding:0; margin-bottom:.32in; }
+.cover-art img{ width:62%; }
+.cover-panel{ height:2.5in; border-radius:16px; }
+.cover-panel img{ width:62%; }
+.cover-txt{ width:100%; padding:0; }
+.cover-kicker{ font-size:10pt; letter-spacing:.3em; margin-bottom:.14in; }
+.cover-txt h1{ font-size:34pt; }
+.cover-rule{ width:1.1in; margin:.22in 0 .2in; }
+.cover-txt p{ font-size:11.5pt; max-width:none; }
+.cover-meta{ margin-top:.34in; gap:0; justify-content:space-between; font-size:9.5pt; letter-spacing:.14em; }
+.cover-meta b{ font-size:19pt; }
+
+/* ---------- CABECALHO ---------- */
+.head{ flex-direction:column-reverse; gap:.2in; margin-bottom:.24in; }
+.head img{ height:.3in; }
+.head-l{ gap:.13in; }
+.num{ font-size:22pt; }
+.head h2{ font-size:20pt; }
+.head h2 small{ font-size:10pt; margin-top:.05in; }
+
+.body{ justify-content:flex-start; }
+
+/* ---------- GRADES: tudo vira 1 ou 2 colunas ---------- */
+.grid{ gap:.12in !important; }
+.g2, .g3, .g4{ grid-template-columns:1fr !important; }
+.g2 .g2, .g4{ grid-template-columns:repeat(2,1fr) !important; }
+.g5{ grid-template-columns:repeat(2,1fr) !important; grid-auto-rows:auto !important; }
+.grid.g2[style*="gap:.4in"]{ gap:.24in !important; }
+.grid[style*="margin-bottom"], .stats[style*="margin-bottom"]{ margin-bottom:.16in !important; }
+
+.card{ padding:.13in .15in; border-radius:10px; }
+.card h3{ font-size:12pt; margin-bottom:.05in; }
+.card p{ font-size:9.4pt; line-height:1.42; }
+.card .tag{ font-size:8pt; margin-bottom:.07in; }
+.card[style*="padding"]{ padding:.2in !important; }
+.card h3[style]{ font-size:14pt !important; }
+.card p[style]{ font-size:10pt !important; }
+
+ul.neon li{ font-size:10.5pt; line-height:1.45; margin-bottom:.1in; padding-left:.22in; }
+ul.neon li::before{ top:.075in; width:.085in; height:.085in; }
+
+/* ---------- NUMEROS ---------- */
+.stats{ grid-template-columns:repeat(2,1fr); gap:.2in .16in; }
+.stat b{ font-size:32pt; }
+.stat span{ font-size:9pt; letter-spacing:.12em; }
+
+/* ---------- PRECOS: cartoes compactos empilhados ---------- */
+.plans{ grid-template-columns:1fr; gap:.12in; }
+.plan{
+  display:grid; grid-template-columns:1fr auto; column-gap:.12in; align-items:center;
+  padding:.14in .18in; border-radius:12px;
+}
+.plan .badge{ grid-column:1 / -1; justify-self:start; font-size:7.5pt; margin-bottom:.06in; }
+.plan h3{ font-size:17pt; grid-column:1; grid-row:auto; }
+.plan .price{ grid-column:2; margin:0; justify-self:end; }
+.plan.hl .price{ grid-row:2; }
+.plan:not(.hl) .price{ grid-row:1; }
+.plan .desc{ grid-column:1 / -1; min-height:0; font-size:9pt; margin-top:.03in; }
+.price .val{ font-size:28pt; }
+.price .cur{ font-size:10pt; }
+.price .per{ font-size:9.5pt; }
+.plan ul{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:0 .14in; margin-top:.06in; }
+.plan ul li{ font-size:8.8pt; padding:.025in 0; border-bottom:none; }
+
+
+/* ---------- TABELA ---------- */
+thead th{ font-size:8.5pt; letter-spacing:.08em; padding:.08in .03in; }
+tbody td{ font-size:9.2pt; padding:.075in .03in; }
+tbody td:first-child{ padding-right:.06in; }
+
+/* ---------- RODAPE ---------- */
+.foot{ left:.34in; right:.34in; bottom:.24in; font-size:7.5pt; letter-spacing:.14em; padding-top:.09in; }
+.note{ font-size:8.6pt; margin-top:.14in; }
+
+/* ---------- FINAL ---------- */
+.end{ padding:.5in .34in; }
+.end img{ width:1.9in; margin-bottom:.3in; }
+.end h2{ font-size:27pt; }
+.end p{ font-size:11.5pt; }
+.end .rule{ width:1.5in; }
+
+/* ---------- AJUSTES DE DENSIDADE ---------- */
+.slide:not(.cover):not(.end){ padding-top:.34in; }
+.head{ margin-bottom:.18in; gap:.16in; }
+ul.neon li{ font-size:10pt; margin-bottom:.075in; }
+.g5 .card{ padding:.1in .13in; }
+.g5 .card p{ font-size:8.8pt; }
+/* Seguranca: os dois blocos de 3 cartoes viram uma unica grade 2x3 */
+.body:has(> .g3 + .g3){ display:grid; grid-template-columns:repeat(2,1fr); gap:.12in; align-content:start; }
+.body > .g3:has(+ .g3), .body > .g3 + .g3{ display:contents; }
+.body > .g3:has(+ .g3) .card p, .body > .g3 + .g3 .card p{ font-size:8.8pt; }
+
+.plan ul li{ position:relative; padding-left:.12in; }
+.plan ul li::before{ content:""; position:absolute; left:0; top:.085in; width:.05in; height:.05in; background:currentColor; opacity:.55; border-radius:1px; }
+
+tbody td{ font-size:9.6pt; padding:.1in .03in; }
+.plans{ gap:.1in; }
+.plan{ padding:.12in .16in; }
