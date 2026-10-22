@@ -6,6 +6,12 @@
  * atualize aqui — nao invente numero em texto de marketing.
  */
 
+/**
+ * Liga/desliga o SaaS no site (secao "Sistema pronto", menu e botao do hero).
+ * Fica oculto ate o sistema estar no ar; para exibir, troque para true.
+ */
+export const MOSTRAR_PRODUTO = false;
+
 export const PRODUTO = {
   nome: "Sistema de Gestão",
   tagline: "Plataforma SaaS multiempresa, em produção",
@@ -79,10 +85,9 @@ export const STACK = [
   "REST",
 ];
 
-/** TROCAR pelos canais reais antes de publicar. */
 export const CONTATO = {
-  whatsapp: "5500000000000",
-  whatsappLabel: "(00) 00000-0000",
-  email: "contato@jhotasoftware.com.br",
+  whatsapp: "5545999182765",
+  whatsappLabel: "(45) 99918-2765",
+  email: "jhonataveronese@gmail.com",
   github: "https://github.com/JhonataVeronese",
 };

@@ -2,24 +2,24 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { CONTATO } from "@/data/produto";
+import { CONTATO, MOSTRAR_PRODUTO } from "@/data/produto";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Jhota Software — Desenvolvimento sob demanda e sistema de gestão",
+  title: "Jhota Software — Dashboards, automações, IA e sistemas sob medida",
   description:
-    "Correção de bugs, integrações, importação de planilhas e endpoints REST com escopo e preço fechados. E um sistema de gestão multiempresa pronto para uso.",
+    "Dashboards e BI, automação de processos, chatbot com WhatsApp, agentes de IA, sites, sistemas web, aplicativos mobile e integrações entre sistemas.",
   openGraph: {
     title: "Jhota Software",
     description:
-      "Desenvolvimento backend sob demanda, com escopo e preço fechados. E um sistema de gestão multiempresa em produção.",
+      "Dashboards, automações, chatbot com WhatsApp, agentes de IA, sites, sistemas, apps e integrações, feitos sob medida.",
     type: "website",
   },
 };
 
 const NAV = [
-  { href: "#produto", label: "Sistema pronto" },
+  ...(MOSTRAR_PRODUTO ? [{ href: "#produto", label: "Sistema pronto" }] : []),
   { href: "#servicos", label: "Serviços" },
   { href: "#processo", label: "Como funciona" },
 ];
@@ -94,7 +94,7 @@ export default function RootLayout({
                 className="h-10 w-auto object-contain"
               />
               <p className="mt-2 text-sm text-white/50">
-                Desenvolvimento backend e sistemas de gestão.
+                Dashboards, automações, IA e sistemas sob medida.
               </p>
             </div>
 
@@ -105,7 +105,7 @@ export default function RootLayout({
                 rel="noopener noreferrer"
                 className="transition hover:text-neon"
               >
-                WhatsApp
+                WhatsApp {CONTATO.whatsappLabel}
               </a>
               <a
                 href={`mailto:${CONTATO.email}`}

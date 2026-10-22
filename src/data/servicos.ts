@@ -1,97 +1,119 @@
 /**
- * Catalogo de servicos sob demanda.
+ * Catalogo de servicos.
  *
- * Este arquivo e a unica fonte de verdade de preco, prazo e escopo. Para
- * ajustar valores ou criar um pacote novo, mexa so aqui — o layout se adapta.
+ * Este arquivo e a unica fonte de verdade do que e oferecido. Sem preco
+ * publicado: cada projeto e orcado depois da conversa. Para incluir ou
+ * remover um servico, mexa so aqui — o layout se adapta.
  */
 
-export type Pacote = {
+export type Servico = {
   /** Usado na ancora e na key do React. */
   id: string;
   numero: string;
   titulo: string;
-  /** Faixa de preco, ja formatada. */
-  preco: string;
-  prazo: string;
+  resumo: string;
   entregaveis: string[];
-  /** O que o pacote NAO cobre. Fica visivel de proposito, evita atrito depois. */
-  limite: string;
   /** Destaca o card na grade. */
   destaque?: boolean;
 };
 
-export const PACOTES: Pacote[] = [
+export const SERVICOS: Servico[] = [
   {
-    id: "bug-api",
+    id: "dashboards-bi",
     numero: "01",
-    titulo: "Correção de bug em API",
-    preco: "R$ 250–400",
-    prazo: "Até 4 horas, após diagnóstico",
+    titulo: "Dashboards e BI",
+    resumo: "Os números da operação em um painel que a gestão consulta todo dia.",
     entregaveis: [
-      "Corrigir um endpoint que retorna erro.",
-      "Resolver validações ou filtros quebrados.",
-      "Corrigir problemas simples de consulta ao banco.",
-      "Entregar correção e teste básico.",
+      "Indicadores definidos junto com a gestão.",
+      "Conexão com planilhas, bancos e sistemas existentes.",
+      "Painéis com filtros por período, área e responsável.",
+      "Atualização automática dos dados.",
     ],
-    limite: "Um bug identificado, sem refatoração geral.",
   },
   {
-    id: "integracao",
+    id: "automacoes",
     numero: "02",
-    titulo: "Integração com API externa",
-    preco: "R$ 400–700",
-    prazo: "4–8 horas",
+    titulo: "Automação de processos",
+    resumo: "Tarefas repetitivas rodando sozinhas, sem copiar e colar.",
     entregaveis: [
-      "Consumir uma API REST.",
-      "Configurar autenticação e tratamento de erros.",
-      "Mapear os dados de entrada e saída.",
-      "Entregar uma integração funcional.",
+      "Mapeamento do processo atual.",
+      "Rotinas automáticas entre planilhas, e-mail e sistemas.",
+      "Alertas e notificações quando algo exige atenção.",
+      "Registro do que foi executado, para auditoria.",
     ],
-    limite: "Um serviço externo e um fluxo de integração.",
     destaque: true,
   },
   {
-    id: "importacao",
+    id: "chatbot-whatsapp",
     numero: "03",
-    titulo: "Importação de Excel ou CSV",
-    preco: "R$ 250–500",
-    prazo: "3–6 horas",
+    titulo: "Chatbot com WhatsApp",
+    resumo: "Atendimento no canal que o seu cliente já usa, 24 horas por dia.",
     entregaveis: [
-      "Ler arquivos CSV ou Excel.",
-      "Validar colunas e campos obrigatórios.",
-      "Salvar registros no PostgreSQL.",
-      "Gerar relatório de erros de importação.",
+      "Fluxos de atendimento, menus e respostas automáticas.",
+      "Integração com a API oficial do WhatsApp.",
+      "Transferência para atendente humano.",
+      "Histórico de conversas e registro de contatos.",
     ],
-    limite: "Um modelo de arquivo e regras de validação definidas.",
   },
   {
-    id: "endpoint",
+    id: "agente-ia",
     numero: "04",
-    titulo: "Endpoint REST",
-    preco: "R$ 300–600",
-    prazo: "4–8 horas",
+    titulo: "Agentes de IA",
+    resumo: "Assistentes que entendem o contexto do seu negócio e executam tarefas.",
     entregaveis: [
-      "Criar um endpoint CRUD simples.",
-      "Implementar paginação e filtros básicos.",
-      "Adicionar validações e tratamento de erros.",
-      "Documentar exemplos de requisição e resposta.",
+      "Agente treinado com os documentos e regras da empresa.",
+      "Ações em sistemas: consultar, cadastrar e atualizar dados.",
+      "Uso em WhatsApp, site ou ferramentas internas.",
+      "Limites e supervisão definidos para cada tarefa.",
     ],
-    limite: "Um recurso, em projeto com estrutura já existente.",
   },
   {
-    id: "diagnostico",
+    id: "sites-landing",
     numero: "05",
-    titulo: "Diagnóstico de API lenta ou instável",
-    preco: "R$ 300–600",
-    prazo: "Até 1 dia",
+    titulo: "Sites e landing pages",
+    resumo: "Presença online rápida, bonita e feita para converter.",
     entregaveis: [
-      "Investigar logs e erros.",
-      "Identificar consultas ou chamadas lentas.",
-      "Apontar a causa provável.",
-      "Corrigir um problema pontual, se estiver dentro do escopo acordado.",
+      "Layout responsivo, pensado primeiro para o celular.",
+      "Carregamento rápido e boas práticas de SEO.",
+      "Formulários e botões ligados ao WhatsApp ou CRM.",
+      "Publicação e configuração de domínio.",
     ],
-    limite:
-      "Diagnóstico e uma correção simples, não uma reestruturação de arquitetura.",
+  },
+  {
+    id: "sistemas-web",
+    numero: "06",
+    titulo: "Sistemas web completos",
+    resumo: "Software sob medida para a operação, do cadastro ao relatório.",
+    entregaveis: [
+      "Levantamento de requisitos e desenho das telas.",
+      "Backend, banco de dados e painel administrativo.",
+      "Controle de usuários e permissões.",
+      "Publicação em nuvem e suporte após a entrega.",
+    ],
+  },
+  {
+    id: "apps-mobile",
+    numero: "07",
+    titulo: "Aplicativos mobile",
+    resumo: "Apps para Android e iOS, para clientes ou para a equipe em campo.",
+    entregaveis: [
+      "Aplicativo multiplataforma com um único código.",
+      "Login, notificações e funcionamento com o backend.",
+      "Publicação nas lojas Google Play e App Store.",
+      "Evolução contínua depois do lançamento.",
+    ],
+  },
+  {
+    id: "integracoes",
+    numero: "08",
+    titulo: "Integrações entre sistemas",
+    resumo: "Os sistemas da empresa conversando entre si, sem retrabalho.",
+    entregaveis: [
+      "Consumo e criação de APIs REST.",
+      "Sincronização entre ERP, CRM, e-commerce e planilhas.",
+      "Autenticação e tratamento de erros.",
+      "Monitoramento para saber quando algo falhar.",
+    ],
   },
 ];
 
@@ -99,26 +121,26 @@ export const PACOTES: Pacote[] = [
 export const PROCESSO = [
   {
     passo: "01",
-    titulo: "Você descreve o problema",
+    titulo: "Você conta a necessidade",
     texto:
-      "Mande o contexto por WhatsApp ou e-mail. Se houver acesso ao repositório ou aos logs, melhor.",
+      "Mande o contexto por WhatsApp ou e-mail: o que precisa, quais sistemas já usa e onde está a dor.",
   },
   {
     passo: "02",
-    titulo: "Escopo e preço fechados",
+    titulo: "Proposta sob medida",
     texto:
-      "Respondo com o pacote adequado, o valor dentro da faixa e o que está fora do escopo. Sem surpresa depois.",
+      "Respondo com escopo, prazo e valor definidos para o seu caso, incluindo o que fica fora. Sem surpresa depois.",
   },
   {
     passo: "03",
     titulo: "Execução",
     texto:
-      "Trabalho no prazo combinado e aviso se algo sair do previsto antes de continuar.",
+      "Trabalho no prazo combinado, com entregas parciais, e aviso se algo sair do previsto antes de continuar.",
   },
   {
     passo: "04",
     titulo: "Entrega",
     texto:
-      "Código entregue com teste básico e explicação do que foi feito, em linguagem que a equipe consegue manter.",
+      "Solução no ar com explicação do que foi feito, em linguagem que a equipe consegue usar e manter.",
   },
 ];
